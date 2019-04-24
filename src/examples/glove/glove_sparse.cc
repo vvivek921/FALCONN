@@ -324,7 +324,7 @@ int main() {
 
       LSHConstructionParameters params
         = get_default_parameters<Point>(dataset.size(),
-                                   dataset[0].size(),
+                                   300,
                                    DistanceFunction::NegativeInnerProduct,
                                    false);
     cout << "building the index based on the cross-polytope LSH" << endl;
