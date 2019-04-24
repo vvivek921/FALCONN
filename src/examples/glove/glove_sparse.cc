@@ -310,25 +310,23 @@ int main() {
     cout << "done" << endl;
 
     // setting parameters and constructing the table
-    LSHConstructionParameters params;
-    params.dimension = dataset[0].size();
-    params.lsh_family = LSHFamily::CrossPolytope;
-    params.l = NUM_HASH_TABLES;
-    params.distance_function = DistanceFunction::EuclideanSquared;
-    compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
-    params.num_rotations = NUM_ROTATIONS;
-    // we want to use all the available threads to set up
-    params.num_setup_threads = 0;
-    params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
-    /*
-      For an easy way out, you could have used the following.
+//    LSHConstructionParameters params;
+//    params.dimension = dataset[0].size();
+//    params.lsh_family = LSHFamily::CrossPolytope;
+//    params.l = NUM_HASH_TABLES;
+//    params.distance_function = DistanceFunction::EuclideanSquared;
+//    compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
+//    params.num_rotations = NUM_ROTATIONS;
+//    // we want to use all the available threads to set up
+//    params.num_setup_threads = 0;
+//    params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
+   //   For an easy way out, you could have used the following.
 
       LSHConstructionParameters params
         = get_default_parameters<Point>(dataset.size(),
                                    dataset[0].size(),
-                                   DistanceFunction::EuclideanSquared,
-                                   true);
-    */
+                                   DistanceFunction::NegativeInnerProduct,
+                                   false);
     cout << "building the index based on the cross-polytope LSH" << endl;
     t1 = high_resolution_clock::now();
     auto table = construct_table<Point>(dataset, params);
