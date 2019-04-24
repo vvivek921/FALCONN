@@ -326,7 +326,7 @@ int main() {
         = get_default_parameters<Point>(dataset.size(),
                                    300,
                                    DistanceFunction::NegativeInnerProduct,
-                                   false);
+                                   true);
     cout << "building the index based on the cross-polytope LSH" << endl;
     t1 = high_resolution_clock::now();
     auto table = construct_table<Point>(dataset, params);
