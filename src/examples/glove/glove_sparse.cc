@@ -101,7 +101,7 @@ bool read_point(FILE *file, Point *point) {
   }
   point->resize(d);
   for (int i = 0; i < d; ++i) {
-    (*point)[i] = std::make_pair(float_buf[i],int_buf[i]);
+    (*point)[i] = std::make_pair(int_buf[i],float_buf[i]);
   }
   delete[] int_buf;
   delete[] float_buf;
@@ -134,11 +134,13 @@ void normalize(vector<Point> *dataset) {
   for (Point p : *dataset) {
     float denominator = 0.0;
     for(int i=0; i< p.size();i++) {
-      denominator += (p[i].first) * (p[i].first);
+      denominator += (p[i].second) * (p[i].second);
     }
     denominator = sqrt(denominator);
-    for(int i=0; i< p.size();i++) {
-      p[i].first /= denominator;
+    if(denominator > 0) {
+      for(int i=0; i< p.size();i++) {
+        p[i].second /= denominator;
+      }
     }
   }
 }
