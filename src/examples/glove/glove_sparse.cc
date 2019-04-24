@@ -365,11 +365,11 @@ int main() {
     cout << "construction time: " << elapsed_time << endl;
 
     // finding the number of probes via the binary search
-//    cout << "finding the appropriate number of probes" << endl;
-//    int num_probes = find_num_probes(&*table, queries, answers, params.l);
-//    cout << "done" << endl;
-//    cout << num_probes << " probes" << endl;
-    int num_probes = 500;
+    cout << "finding the appropriate number of probes" << endl;
+    int num_probes = find_num_probes(&*table, queries, answers, params.l);
+    cout << "done" << endl;
+    cout << num_probes << " probes" << endl;
+    //int num_probes = 500;
     // executing the queries using the found number of probes to gather
     // statistics
     auto tmp = evaluate_query_time(&*table, queries, answers, num_probes);
