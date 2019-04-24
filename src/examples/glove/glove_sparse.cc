@@ -279,11 +279,11 @@ int main() {
     cout << "done" << endl;
 
     // find the center of mass
-    Point center = dataset[0];
-    for (size_t i = 1; i < dataset.size(); ++i) {
-      center += dataset[i];
-    }
-    center /= dataset.size();
+//    Point center = dataset[0];
+//    for (size_t i = 1; i < dataset.size(); ++i) {
+//      center += dataset[i];
+//    }
+//    center /= dataset.size();
 
     // selecting NUM_QUERIES data points as queries
     cout << "selecting " << NUM_QUERIES << " queries" << endl;
@@ -301,12 +301,12 @@ int main() {
 
     // re-centering the data to make it more isotropic
     cout << "re-centering" << endl;
-    for (auto &datapoint : dataset) {
-      datapoint -= center;
-    }
-    for (auto &query : queries) {
-      query -= center;
-    }
+//    for (auto &datapoint : dataset) {
+//      datapoint -= center;
+//    }
+//    for (auto &query : queries) {
+//      query -= center;
+//    }
     cout << "done" << endl;
 
     // setting parameters and constructing the table
