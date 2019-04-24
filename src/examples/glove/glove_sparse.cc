@@ -133,12 +133,12 @@ void read_dataset(string file_name, vector<Point> *dataset) {
 void normalize(vector<Point> *dataset) {
   for (Point p : *dataset) {
     float denominator = 0.0;
-    for(int i=0; i< p.size();i++) {
+    for(size_t i=0; i< p.size();i++) {
       denominator += (p[i].second) * (p[i].second);
     }
     denominator = sqrt(denominator);
     if(denominator > 0) {
-      for(int i=0; i< p.size();i++) {
+      for(size_t i=0; i< p.size();i++) {
         p[i].second /= denominator;
       }
     }
@@ -281,11 +281,21 @@ int main() {
     cout << "done" << endl;
 
     // find the center of mass
-//    Point center = dataset[0];
-//    for (size_t i = 1; i < dataset.size(); ++i) {
-//      center += dataset[i];
-//    }
-//    center /= dataset.size();
+    Point * center = new Point();
+    center->resize(300);
+    for(int i=0;i<300;i++) {
+      (*center)[i] = std::make_pair(i,0);
+    }
+    for (size_t i = 0; i < dataset.size(); ++i) {
+      for(size_t j=0; j < dataset[i].size();j++) {
+        int idx = dataset[i][j].first;
+        float num = dataset[i][j].second;
+        (*center)[idx].second = (*center)[idx].second + num;
+      }
+    }
+    for(int i=0;i<300;i++) {
+      (*center)[i].second /= dataset.size();
+    }
 
     // selecting NUM_QUERIES data points as queries
     cout << "selecting " << NUM_QUERIES << " queries" << endl;
@@ -303,12 +313,29 @@ int main() {
 
     // re-centering the data to make it more isotropic
     cout << "re-centering" << endl;
+    for (size_t i = 0; i < dataset.size(); ++i) {
+      for(size_t j=0; j < dataset[i].size();j++) {
+        int idx = dataset[i][j].first;
+          dataset[i][j].second -= (*center)[idx].second;
+      }
+    }
+
+    for (size_t i = 0; i < queries.size(); ++i) {
+      for(size_t j=0; j < queries[i].size();j++) {
+        int idx = queries[i][j].first;
+        queries[i][j].second -= (*center)[idx].second;
+      }
+    }
+
 //    for (auto &datapoint : dataset) {
 //      datapoint -= center;
 //    }
 //    for (auto &query : queries) {
 //      query -= center;
 //    }
+
+
+
     cout << "done" << endl;
 
     // setting parameters and constructing the table
