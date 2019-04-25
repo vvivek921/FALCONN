@@ -328,11 +328,11 @@ int main() {
     // setting parameters and constructing the table
     LSHConstructionParameters params;
     params.dimension = dataset[0].size();
-    params.lsh_family = LSHFamily::CrossPolytope;
+    params.lsh_family = LSHFamily::Hyperplane;
     params.l = NUM_HASH_TABLES;
     params.distance_function = DistanceFunction::EuclideanSquared;
     compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
-    params.num_rotations = NUM_ROTATIONS;
+    //params.num_rotations = NUM_ROTATIONS;
     // we want to use all the available threads to set up
     params.num_setup_threads = 0;
     params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
