@@ -359,6 +359,7 @@ int main() {
     cout << "building the index based on the cross-polytope LSH" << endl;
     params.k = 1;
     params.num_rotations = 1;
+    params.feature_hashing_dimension=256;
     t1 = high_resolution_clock::now();
     auto table = construct_table<Point>(dataset, params);
     t2 = high_resolution_clock::now();
