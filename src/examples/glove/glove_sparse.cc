@@ -45,7 +45,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string>
-#include <fstream>
 
 using std::fmax;
 using std::cerr;
@@ -91,6 +90,13 @@ const int NUM_ROTATIONS = 2;
  * An auxiliary function that reads a point from a binary file that is produced
  * by a script 'prepare-dataset.sh'
  */
+
+void persist(vector<int> v, string file_name) {
+  std::ofstream output_file(file_name);
+  for (const auto &e : v) output_file << e << "\n";
+
+}
+
 inline bool exists_file(const std::string& name) {
   if (FILE *file = fopen(name.c_str(), "r")) {
     fclose(file);
@@ -324,13 +330,8 @@ int main() {
       //
     } else {
       gen_answers(dataset, queries, &answers);
-      std::ofstream output_file("./answers.txt");
-      std::ostream_iterator<int> output_iterator(output_file, "\n");
-      std::copy(answers.begin(), answers.begin(), output_iterator);
+      persist(answers,"answers,txt");
     }
-
-
-
     auto t2 = high_resolution_clock::now();
     double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
     cout << "done" << endl;
