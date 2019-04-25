@@ -152,15 +152,15 @@ void read_dataset(string file_name, vector<Point> *dataset) {
  * Normalizes the dataset.
  */
 void normalize(vector<Point> *dataset) {
-  for (Point p : *dataset) {
+  for (size_t j=0; j < (*dataset).size();j++) {
     float denominator = 0.0;
-    for(size_t i=0; i< p.size();i++) {
-      denominator += (p[i].second) * (p[i].second);
+    for(size_t i=0; i< (*dataset)[j].size();i++) {
+      denominator += ((*dataset)[j][i].second) * ((*dataset)[j][i].second);
     }
     denominator = sqrt(denominator);
     if(denominator > 0) {
-      for(size_t i=0; i< p.size();i++) {
-        p[i].second /= denominator;
+      for(size_t i=0; i< (*dataset)[j].size();i++) {
+        (*dataset)[j][i].second /= denominator;
       }
     }
   }
