@@ -75,7 +75,7 @@ typedef SparseVector<float,int> Point;
 using falconn::core::CosineDistanceSparse;
 CosineDistanceSparse<float> distance_function;
 const string FILE_NAME = "dataset/glove.840B.300d_sparse.dat";
-const int NUM_QUERIES = 1000;
+const int NUM_QUERIES = 100;
 const int SEED = 4057218;
 const int NUM_HASH_TABLES = 50;
 const int NUM_HASH_BITS = 18;
