@@ -325,7 +325,7 @@ int main() {
     } else {
       gen_answers(dataset, queries, &answers);
       std::ofstream output_file("./answers.txt");
-      std::ostream_iterator<std::string> output_iterator(output_file, "\n");
+      std::ostream_iterator<int> output_iterator(output_file, "\n");
       std::copy(answers.begin(), answers.begin(), output_iterator);
     }
 
