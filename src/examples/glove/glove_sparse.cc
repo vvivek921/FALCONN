@@ -40,6 +40,12 @@
 
 #include <cstdio>
 #include <cmath>
+#include <fstream>
+
+#include <sys/stat.h>
+#include <unistd.h>
+#include <string>
+#include <fstream>
 
 using std::fmax;
 using std::cerr;
@@ -75,7 +81,7 @@ typedef SparseVector<float,int> Point;
 using falconn::core::CosineDistanceSparse;
 CosineDistanceSparse<float> distance_function;
 const string FILE_NAME = "dataset/glove.840B.300d_sparse.dat";
-const int NUM_QUERIES = 100;
+const int NUM_QUERIES = 1000;
 const int SEED = 4057218;
 const int NUM_HASH_TABLES = 50;
 const int NUM_HASH_BITS = 18;
@@ -85,6 +91,15 @@ const int NUM_ROTATIONS = 2;
  * An auxiliary function that reads a point from a binary file that is produced
  * by a script 'prepare-dataset.sh'
  */
+inline bool exists_file(const std::string& name) {
+  if (FILE *file = fopen(name.c_str(), "r")) {
+    fclose(file);
+    return true;
+  } else {
+    return false;
+  }
+}
+
 bool read_point(FILE *file, Point *point) {
   int d;
   if (fread(&d, sizeof(int), 1, file) != 1) {
@@ -305,7 +320,17 @@ int main() {
     // running the linear scan
     cout << "running linear scan (to generate nearest neighbors)" << endl;
     auto t1 = high_resolution_clock::now();
-    gen_answers(dataset, queries, &answers);
+    if(exists_file("./answers.txt")) {
+      //
+    } else {
+      gen_answers(dataset, queries, &answers);
+      std::ofstream output_file("./answers.txt");
+      std::ostream_iterator<std::string> output_iterator(output_file, "\n");
+      std::copy(answers.begin(), answers.begin(), output_iterator);
+    }
+
+
+
     auto t2 = high_resolution_clock::now();
     double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
     cout << "done" << endl;
