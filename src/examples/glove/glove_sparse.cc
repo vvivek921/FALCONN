@@ -401,7 +401,7 @@ int main() {
     // we want to use all the available threads to set up
     params.num_setup_threads = 0;
     params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
-    params.feature_hashing_dimension = 512
+    params.feature_hashing_dimension = 512;
     t1 = high_resolution_clock::now();
     auto table = construct_table<Point>(dataset, params);
     t2 = high_resolution_clock::now();
