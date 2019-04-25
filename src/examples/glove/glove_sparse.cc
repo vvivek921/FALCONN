@@ -93,7 +93,7 @@ const int NUM_ROTATIONS = 2;
 
 void persist(vector<int> v, string file_name) {
   std::ofstream output_file(file_name);
-  for (const auto &e : v) output_file << e << "\n";
+  for (const auto &e : v) output_file << e << " ";
 
 }
 
@@ -326,11 +326,16 @@ int main() {
     // running the linear scan
     cout << "running linear scan (to generate nearest neighbors)" << endl;
     auto t1 = high_resolution_clock::now();
-    if(exists_file("./answers.txt")) {
-      //
+    if(exists_file("answers.txt")) {
+      std::ifstream input_file("answers.txt");
+      int tmp_int;
+      while(input_file >> tmp_int) {
+        answers.push_back(tmp_int);
+      }
+
     } else {
       gen_answers(dataset, queries, &answers);
-      persist(answers,"answers,txt");
+      persist(answers,"answers.txt");
     }
     auto t2 = high_resolution_clock::now();
     double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
