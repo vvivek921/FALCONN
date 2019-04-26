@@ -382,25 +382,25 @@ int main() {
 //    params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
    //   For an easy way out, you could have used the following.
 
-    LSHConstructionParameters params
-      = get_default_parameters<Point>(dataset.size(),
-                                 300,
-                                 DistanceFunction::NegativeInnerProduct,
-                                 true);
-    cout << "building the index based on the cross-polytope LSH" << endl;
-    params.feature_hashing_dimension=256;
+//    LSHConstructionParameters params
+//      = get_default_parameters<Point>(dataset.size(),
+//                                 300,
+//                                 DistanceFunction::NegativeInnerProduct,
+//                                 true);
+//    cout << "building the index based on the cross-polytope LSH" << endl;
+//    params.feature_hashing_dimension=256;
 
-//    LSHConstructionParameters params;
-//    params.dimension = dataset[0].size();
-//    params.lsh_family = LSHFamily::Hyperplane;
-//    params.l = NUM_HASH_TABLES;
-//    params.distance_function = DistanceFunction::EuclideanSquared;
-//    compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
-//    //params.num_rotations = NUM_ROTATIONS;
-//    // we want to use all the available threads to set up
-//    params.num_setup_threads = 0;
-//    params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
-//    params.feature_hashing_dimension = 512;
+    LSHConstructionParameters params;
+    params.dimension = dataset[0].size();
+    params.lsh_family = LSHFamily::Hyperplane;
+    params.l = NUM_HASH_TABLES;
+    params.distance_function = DistanceFunction::EuclideanSquared;
+    compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
+    //params.num_rotations = NUM_ROTATIONS;
+    // we want to use all the available threads to set up
+    params.num_setup_threads = 0;
+    params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
+    params.feature_hashing_dimension = 256;
 
 
     t1 = high_resolution_clock::now();
