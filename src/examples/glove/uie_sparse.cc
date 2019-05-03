@@ -79,7 +79,7 @@ using falconn::get_default_parameters;
 typedef SparseVector<float,int> Point;
 using falconn::core::CosineDistanceSparse;
 CosineDistanceSparse<float> distance_function;
-const string FILE_NAME = "dataset/uie_1m.dat";
+const string FILE_NAME = "/mnt/uie-sparse.dat";
 const int NUM_QUERIES = 1000;
 const int SEED = 4057218;
 const int NUM_HASH_TABLES = 50;
@@ -381,26 +381,26 @@ int main() {
    // params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
    ///   For an easy way out, you could have used the following.
 
-    LSHConstructionParameters params
-      = get_default_parameters<Point>(dataset.size(),
-                                 972,
-                                 DistanceFunction::NegativeInnerProduct,
-                                 false);
-    cout << "building the index based on the cross-polytope LSH" << endl;
+//    LSHConstructionParameters params
+//      = get_default_parameters<Point>(dataset.size(),
+//                                 972,
+//                                 DistanceFunction::NegativeInnerProduct,
+//                                 false);
+//    cout << "building the index based on the cross-polytope LSH" << endl;
 //    params.feature_hashing_dimension=256;
 
-//    LSHConstructionParameters params;
-//    params.dimension = 972;
-//    params.lsh_family = LSHFamily::Hyperplane;
-//    params.l = NUM_HASH_TABLES;
-//    params.distance_function = DistanceFunction::EuclideanSquared;
-//    //params.distance_function = DistanceFunction::NegativeInnerProduct;
+    LSHConstructionParameters params;
+    params.dimension = 928;
+    params.lsh_family = LSHFamily::Hyperplane;
+    params.l = NUM_HASH_TABLES;
+    params.distance_function = DistanceFunction::EuclideanSquared;
+    //params.distance_function = DistanceFunction::NegativeInnerProduct;
 //compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
-//    params.num_rotations = NUM_ROTATIONS;
+    params.num_rotations = NUM_ROTATIONS;
 //    // we want to use all the available threads to set up
-//    params.num_setup_threads = 0;
-//    params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
-//    params.feature_hashing_dimension = 128;
+    params.num_setup_threads = 0;
+    params.storage_hash_table = StorageHashTable::BitPackedFlatHashTable;
+    params.feature_hashing_dimension = 128;
 //
 //
     t1 = high_resolution_clock::now();
