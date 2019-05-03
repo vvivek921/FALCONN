@@ -10,9 +10,9 @@ with open('/mnt/vivek-data2.csv', 'r') as inf:
             counter = 0
             while True:
                 data =  islice(inf, 0, 3)
-                le = next(data)
-                idx = next(data)
-                data = next(data)
+                int(le) = next(data)
+                [int(i) for i in idx] = next(data)
+                [ float(i) for i in data ]= next(data)
                 ouf.write(struct.pack('i', le))
                 ouf.write(struct.pack('%si' % le , *idx ))
                 ouf.write(struct.pack('%sf' % le,*data ))
