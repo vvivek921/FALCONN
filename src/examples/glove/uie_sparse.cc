@@ -324,22 +324,22 @@ int main() {
     cout << "done" << endl;
 
     // running the linear scan
-    cout << "running linear scan (to generate nearest neighbors)" << endl;
-    auto t1 = high_resolution_clock::now();
-    if(exists_file("answers2.txt")) {
-      std::ifstream input_file("answers2.txt");
-      int tmp_int;
-      while(input_file >> tmp_int) {
-        answers.push_back(tmp_int);
-      }
-    } else {
-      gen_answers(dataset, queries, &answers);
-      persist(answers,"answers2.txt");
-    }
-    auto t2 = high_resolution_clock::now();
-    double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
-    cout << "done" << endl;
-    cout << elapsed_time / queries.size() << " s per query" << endl;
+//    cout << "running linear scan (to generate nearest neighbors)" << endl;
+//    auto t1 = high_resolution_clock::now();
+//    if(exists_file("answers2.txt")) {
+//      std::ifstream input_file("answers2.txt");
+//      int tmp_int;
+//      while(input_file >> tmp_int) {
+//        answers.push_back(tmp_int);
+//      }
+//    } else {
+//      gen_answers(dataset, queries, &answers);
+//      persist(answers,"answers2.txt");
+//    }
+//    auto t2 = high_resolution_clock::now();
+//    double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
+//    cout << "done" << endl;
+//    cout << elapsed_time / queries.size() << " s per query" << endl;
 
     // re-centering the data to make it more isotropic
     cout << "re-centering" << endl;
@@ -395,7 +395,7 @@ int main() {
     params.l = NUM_HASH_TABLES;
     params.distance_function = DistanceFunction::EuclideanSquared;
     //params.distance_function = DistanceFunction::NegativeInnerProduct;
-//compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
+    compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
     params.num_rotations = NUM_ROTATIONS;
 //    // we want to use all the available threads to set up
     params.num_setup_threads = 0;
