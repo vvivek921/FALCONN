@@ -324,22 +324,22 @@ int main() {
     cout << "done" << endl;
 
     // running the linear scan
-//    cout << "running linear scan (to generate nearest neighbors)" << endl;
+    cout << "running linear scan (to generate nearest neighbors)" << endl;
       auto t1 = high_resolution_clock::now();
-//    if(exists_file("answers2.txt")) {
-//      std::ifstream input_file("answers2.txt");
-//      int tmp_int;
-//      while(input_file >> tmp_int) {
-//        answers.push_back(tmp_int);
-//      }
-//    } else {
-//      gen_answers(dataset, queries, &answers);
-//      persist(answers,"answers2.txt");
-//    }
+    if(exists_file("answers2.txt")) {
+      std::ifstream input_file("answers2.txt");
+      int tmp_int;
+      while(input_file >> tmp_int) {
+        answers.push_back(tmp_int);
+      }
+    } else {
+      gen_answers(dataset, queries, &answers);
+      persist(answers,"answers2.txt");
+    }
       auto t2 = high_resolution_clock::now();
      double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
-//    cout << "done" << endl;
-//    cout << elapsed_time / queries.size() << " s per query" << endl;
+    cout << "done" << endl;
+    cout << elapsed_time / queries.size() << " s per query" << endl;
 
     // re-centering the data to make it more isotropic
     cout << "re-centering" << endl;
@@ -412,7 +412,7 @@ int main() {
 
     // finding the number of probes via the binary search
     cout << "finding the appropriate number of probes" << endl;
-    //int num_probes = find_num_probes(&*table, queries, answers, params.l);
+    int num_probes = find_num_probes(&*table, queries, answers, params.l);
     cout << "done" << endl;
    int num_probes = 128;
      cout << num_probes << " probes" << endl;
