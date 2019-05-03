@@ -390,7 +390,7 @@ int main() {
 //    params.feature_hashing_dimension=256;
 
     LSHConstructionParameters params;
-    params.dimension = 928;
+    params.dimension = 972;
     params.lsh_family = LSHFamily::Hyperplane;
     params.l = NUM_HASH_TABLES;
     params.distance_function = DistanceFunction::EuclideanSquared;
