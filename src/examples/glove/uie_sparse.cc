@@ -325,7 +325,7 @@ int main() {
 
     // running the linear scan
 //    cout << "running linear scan (to generate nearest neighbors)" << endl;
-//    auto t1 = high_resolution_clock::now();
+      auto t1 = high_resolution_clock::now();
 //    if(exists_file("answers2.txt")) {
 //      std::ifstream input_file("answers2.txt");
 //      int tmp_int;
@@ -336,7 +336,7 @@ int main() {
 //      gen_answers(dataset, queries, &answers);
 //      persist(answers,"answers2.txt");
 //    }
-//    auto t2 = high_resolution_clock::now();
+      auto t2 = high_resolution_clock::now();
 //    double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
 //    cout << "done" << endl;
 //    cout << elapsed_time / queries.size() << " s per query" << endl;
