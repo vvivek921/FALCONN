@@ -337,7 +337,7 @@ int main() {
 //      persist(answers,"answers2.txt");
 //    }
       auto t2 = high_resolution_clock::now();
-//    double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
+     double elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
 //    cout << "done" << endl;
 //    cout << elapsed_time / queries.size() << " s per query" << endl;
 
