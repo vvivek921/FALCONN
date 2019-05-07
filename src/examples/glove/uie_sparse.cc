@@ -412,9 +412,9 @@ int main() {
 
     // finding the number of probes via the binary search
     cout << "finding the appropriate number of probes" << endl;
-    int num_probes = find_num_probes(&*table, queries, answers, params.l);
+    //int num_probes = find_num_probes(&*table, queries, answers, params.l);
     cout << "done" << endl;
-    //int num_probes = 128;
+    int num_probes = 128;
      cout << num_probes << " probes" << endl;
     //int num_probes = 500;
     // executing the queries using the found number of probes to gather
