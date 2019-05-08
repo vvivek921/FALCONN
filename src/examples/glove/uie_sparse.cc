@@ -397,7 +397,7 @@ int main() {
     //params.distance_function = DistanceFunction::NegativeInnerProduct;
     compute_number_of_hash_functions<Point>(NUM_HASH_BITS, &params);
     cout << "num of hash functions";
-    cout << params->k;
+    cout << params.k;
     params.num_rotations = NUM_ROTATIONS;
 //    // we want to use all the available threads to set up
     params.num_setup_threads = 0;
