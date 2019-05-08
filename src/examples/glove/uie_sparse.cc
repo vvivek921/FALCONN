@@ -82,7 +82,7 @@ CosineDistanceSparse<float> distance_function;
 const string FILE_NAME = "/mnt/uie-sparse.dat";
 const int NUM_QUERIES = 1000;
 const int SEED = 4057218;
-const int NUM_HASH_TABLES = 50;
+const int NUM_HASH_TABLES = 30;
 const int NUM_HASH_BITS = 18;
 const int NUM_ROTATIONS = 2;
 
