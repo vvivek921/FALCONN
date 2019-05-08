@@ -419,7 +419,11 @@ int main() {
     //int num_probes = 500;
     // executing the queries using the found number of probes to gather
     // statistics
+    t1 = high_resolution_clock::now();
     auto tmp = evaluate_query_time(&*table, queries, answers, num_probes);
+    t2 = high_resolution_clock::now();
+    elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
+    cout << "evaluate query time: " << elapsed_time << endl;
     auto score = tmp.first;
     auto statistics = tmp.second;
     cout << "average total query time: " << statistics.average_total_query_time
