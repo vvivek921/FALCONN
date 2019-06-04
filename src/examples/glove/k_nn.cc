@@ -314,7 +314,6 @@ int main() {
       resultSet.clear();
       cout << num_probes << " probes" << endl;
       num_probes = num_probes * 2;
-      t1 = high_resolution_clock::now();
       unique_ptr<LSHNearestNeighborQuery<Point>> query_object =
               table->construct_query_object(num_probes);
       query_object->reset_query_statistics();
