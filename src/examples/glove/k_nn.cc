@@ -310,6 +310,7 @@ int main() {
     cout << "done" << endl;
     int num_probes = NUM_OF_PROBES;
     unordered_set<int> resultSet;
+    int k = FACTOR;
     do {
       resultSet.clear();
       cout << num_probes << " probes" << endl;
@@ -319,10 +320,10 @@ int main() {
       query_object->reset_query_statistics();
 
       for (const auto &query : queries) {
-        std::vector<int>* result = &(new vector<int>());
+        std::vector<int>* result = new vector<int>();
         query_object->find_k_nearest_neighbors(query,k,result)
         for(std::vector<int>::size_type i = 0; i != (*result).size(); i++) {
-          resultSet.insert(i);
+          resultSet.insert((*result)[i]);
         }
       }
 
