@@ -324,6 +324,7 @@ int main() {
       }
 
     } while( resultSet.size() < queries.size() * FACTOR);
+    cout<< "query size: "<< queries.size();
     cout << "resultSet size: " << resultSet.size();
     std::vector<int> trimmedResultSet;
     for(const auto &res: resultSet) {
