@@ -79,7 +79,7 @@ using falconn::get_default_parameters;
 typedef SparseVector<float,int> Point;
 using falconn::core::CosineDistanceSparse;
 CosineDistanceSparse<float> distance_function;
-const string DATASET_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/glove_head_100_sparse.dat";
+const string DATASET_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/glove.840B.300d_sparse.dat";
 const string QUERY_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/glove_tail_2_sparse.dat";
 const int SEED = 4057218;
 const int NUM_HASH_TABLES = 30;
@@ -88,6 +88,7 @@ const int NUM_ROTATIONS = 2;
 const int DATA_VECTOR_DIM = 972;
 const int FEATURE_HASHING_DIMENSION=128;
 const int FACTOR = 20;
+const int NUM_OF_PROBES = 120
 /*
  * An auxiliary function that reads a point from a binary file that is produced
  * by a script 'prepare-dataset.sh'
@@ -309,10 +310,13 @@ int main() {
     cout << "finding the appropriate number of probes" << endl;
     //int num_probes = find_num_probes(&*table, queries, answers, params.l);
     cout << "done" << endl;
-    int num_probes = 4;
+    int num_probes = NUM_OF_PROBES;
     unordered_set<int> resultSet;
     do {
       resultSet.clear();
+      for (const auto &query : queries) {
+        resultSet.insert(query);
+      }
       cout << num_probes << " probes" << endl;
       num_probes = num_probes * 2;
       t1 = high_resolution_clock::now();
@@ -330,7 +334,7 @@ int main() {
         }
       }
 
-    } while( result.size() < queries.size() * FACTOR);
+    } while( resultSet.size() < queries.size() * FACTOR);
     std::vector<int> trimmedResultSet;
     for(const auto &res: resultSet) {
       trimmedResultSet.append(res);
