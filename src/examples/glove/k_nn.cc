@@ -45,6 +45,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string>
+#include <unordered_set>
 
 using std::fmax;
 using std::cerr;
@@ -60,6 +61,7 @@ using std::string;
 using std::uniform_int_distribution;
 using std::unique_ptr;
 using std::vector;
+using std::unordered_set;
 
 using std::chrono::duration;
 using std::chrono::duration_cast;
@@ -300,7 +302,6 @@ int main() {
 //
 //
     auto table = construct_table<Point>(dataset, params);
-    elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
     cout << "done" << endl;
     cout << "construction time: " << elapsed_time << endl;
 
