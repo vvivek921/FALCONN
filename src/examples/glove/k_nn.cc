@@ -320,11 +320,12 @@ int main() {
       query_object->reset_query_statistics();
 
       for (const auto &query : queries) {
-        std::vector<int>* result = new vector<int>();
-        query_object->find_k_nearest_neighbors(query,k,result)
-        for(int i = 0; i != (*result).size(); i++) {
-          resultSet.insert((*result)[i]);
+        std::vector<int> result;
+        query_object->find_k_nearest_neighbors(query,k,&result)
+        for(const auto res: result) {
+          resultSet.insert(res);
         }
+        result.clear();
       }
 
     } while( resultSet.size() < queries.size() * FACTOR);
