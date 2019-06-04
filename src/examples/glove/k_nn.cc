@@ -88,7 +88,7 @@ const int NUM_ROTATIONS = 2;
 const int DATA_VECTOR_DIM = 972;
 const int FEATURE_HASHING_DIMENSION=128;
 const int FACTOR = 20;
-const int NUM_OF_PROBES = 120
+const int NUM_OF_PROBES = 120;
 /*
  * An auxiliary function that reads a point from a binary file that is produced
  * by a script 'prepare-dataset.sh'
@@ -212,7 +212,7 @@ int main() {
     cout << dataset.size() << " dataset points read" << endl;
 
     read_dataset(QUERY_FILE_NAME, &queries);
-    cout << query.size() << "query points read" << endl;
+    cout << queries.size() << "query points read" << endl;
 
     // normalize the data points
     cout << "normalizing points" << endl;
@@ -238,7 +238,7 @@ int main() {
       for(size_t j=0; j < queries[i].size();j++) {
         int idx = queries[i][j].first;
         float num = queries[i][j].second;
-        (*queries)[idx].second = (*queries)[idx].second + num;
+        (*center)[idx].second = (*center)[idx].second + num;
       }
     }
 
@@ -299,9 +299,7 @@ int main() {
     params.feature_hashing_dimension = FEATURE_HASHING_DIMENSION;
 //
 //
-    t1 = high_resolution_clock::now();
     auto table = construct_table<Point>(dataset, params);
-    t2 = high_resolution_clock::now();
     elapsed_time = duration_cast<duration<double>>(t2 - t1).count();
     cout << "done" << endl;
     cout << "construction time: " << elapsed_time << endl;
@@ -323,8 +321,6 @@ int main() {
       unique_ptr<LSHNearestNeighborQuery<Point>> query_object =
               table->construct_query_object(num_probes);
       query_object->reset_query_statistics();
-      int outer_counter = 0;
-      int num_matches = 0;
 
       for (const auto &query : queries) {
         std::vector<int>* result = &(new vector<int>());
@@ -337,7 +333,7 @@ int main() {
     } while( resultSet.size() < queries.size() * FACTOR);
     std::vector<int> trimmedResultSet;
     for(const auto &res: resultSet) {
-      trimmedResultSet.append(res);
+      trimmedResultSet.push_back(res);
       if(trimmedResultSet.size() == queries.size() * FACTOR)
         break;
     }
