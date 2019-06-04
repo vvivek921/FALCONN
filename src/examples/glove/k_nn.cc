@@ -312,9 +312,6 @@ int main() {
     unordered_set<int> resultSet;
     do {
       resultSet.clear();
-      for (const auto &query : queries) {
-        resultSet.insert(query);
-      }
       cout << num_probes << " probes" << endl;
       num_probes = num_probes * 2;
       t1 = high_resolution_clock::now();
