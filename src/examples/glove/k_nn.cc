@@ -302,12 +302,7 @@ int main() {
 //
 //
     auto table = construct_table<Point>(dataset, params);
-    cout << "done" << endl;
-
-    // finding the number of probes via the binary search
-    cout << "finding the appropriate number of probes" << endl;
-    //int num_probes = find_num_probes(&*table, queries, answers, params.l);
-    cout << "done" << endl;
+    cout << "table construction done" << endl;
     int num_probes = NUM_OF_PROBES;
     unordered_set<int> resultSet;
     int k = FACTOR;
@@ -329,12 +324,14 @@ int main() {
       }
 
     } while( resultSet.size() < queries.size() * FACTOR);
+    cout << "resultSet size: " << resultSet.size();
     std::vector<int> trimmedResultSet;
     for(const auto &res: resultSet) {
       trimmedResultSet.push_back(res);
       if(trimmedResultSet.size() == queries.size() * FACTOR)
         break;
     }
+    cout << "trimmed ResultSet size: "<< trimmedResultSet.size();
     cout << trimmedResultSet.front();
   } catch (runtime_error &e) {
     cerr << "Runtime error: " << e.what() << endl;
