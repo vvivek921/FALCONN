@@ -303,7 +303,6 @@ int main() {
 //
     auto table = construct_table<Point>(dataset, params);
     cout << "done" << endl;
-    cout << "construction time: " << elapsed_time << endl;
 
     // finding the number of probes via the binary search
     cout << "finding the appropriate number of probes" << endl;
@@ -338,7 +337,7 @@ int main() {
       if(trimmedResultSet.size() == queries.size() * FACTOR)
         break;
     }
-    cout << trimmedResultSet;
+    cout << trimmedResultSet.front();
   } catch (runtime_error &e) {
     cerr << "Runtime error: " << e.what() << endl;
     return 1;
