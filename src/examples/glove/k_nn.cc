@@ -89,7 +89,7 @@ const int NUM_HASH_BITS = 18;
 const int NUM_ROTATIONS = 2;
 const int DATA_VECTOR_DIM = 972;
 const int FEATURE_HASHING_DIMENSION=128;
-const int FACTOR = 20;
+const int FACTOR = 1;
 const int NUM_OF_PROBES = 120;
 /*
  * An auxiliary function that reads a point from a binary file that is produced
@@ -334,6 +334,7 @@ int main() {
     }
     cout << "trimmed ResultSet size: "<< trimmedResultSet.size();
     cout << trimmedResultSet.front();
+    cout << trimmedResultSet.back();
   } catch (runtime_error &e) {
     cerr << "Runtime error: " << e.what() << endl;
     return 1;
