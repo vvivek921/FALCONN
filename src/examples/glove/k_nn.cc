@@ -322,7 +322,7 @@ int main() {
       for (const auto &query : queries) {
         std::vector<int>* result = new vector<int>();
         query_object->find_k_nearest_neighbors(query,k,result)
-        for(std::vector<int>::size_type i = 0; i != (*result).size(); i++) {
+        for(int i = 0; i != (*result).size(); i++) {
           resultSet.insert((*result)[i]);
         }
       }
