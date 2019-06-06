@@ -1,29 +1,6 @@
 /*
- * An example program that takes a GloVe
- * (http://nlp.stanford.edu/projects/glove/) dataset and builds a cross-polytope
- * LSH table with the following goal in mind: for a random subset of NUM_QUERIES
- * points, we would like to find a nearest neighbor (w.r.t. cosine similarity)
- * with probability at least 0.9.
- *
- * There is a function get_default_parameters, which you can use to set the
- * parameters automatically (in the code, we show how it could have been used).
- * However, we recommend to set parameters manually to maximize the performance.
- *
- * You need to specify:
- *   - NUM_HASH_TABLES, which affects the memory usage: the larger it is, the
- *     better (unless it's too large). Despite that, it's usually a good idea
- *     to start with say 10 tables, and then increase it gradually, while
- *     observing the effect it makes.
- *   - NUM_HASH_BITS, that controls the number of buckets per table,
- *     usually it should be around the binary logarithm of the number of data
- *     points
- *   - NUM_ROTATIONS, which controls the number of pseudo-random rotations for
- *     the cross-polytope LSH, set it to 1 for the dense data, and 2 for the
- *     sparse data (for GloVe we set it to 1)
- *
- * The code sets the number of probes automatically. Also, it recenters the
- * dataset for improved partitioning. Since after recentering vectors are not
- * unit anymore we should use the Euclidean distance in the data structure.
+ * This program takes 2 files: one file contains list of seed users and other file contains list of universe of users
+ * It outputs a file with expanded user list based on the given expansion factor(FACTOR variable as defined below).
  */
 
 #include <falconn/lsh_nn_table.h>
@@ -46,6 +23,13 @@
 #include <unistd.h>
 #include <string>
 #include <unordered_set>
+
+#include <iostream>
+using std::cerr;
+using std::endl;
+#include <fstream>
+using std::ofstream;
+#include <cstdlib>
 
 using std::fmax;
 using std::cerr;
@@ -83,6 +67,7 @@ using falconn::core::CosineDistanceSparse;
 CosineDistanceSparse<float> distance_function;
 const string DATASET_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/glove.840B.300d_sparse.dat";
 const string QUERY_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/glove_tail_2_sparse.dat";
+const string EXPANSION_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/expanded.txt";
 const int SEED = 4057218;
 const int NUM_HASH_TABLES = 30;
 const int NUM_HASH_BITS = 18;
@@ -335,6 +320,12 @@ int main() {
     cout << "trimmed ResultSet size: "<< trimmedResultSet.size();
     cout << trimmedResultSet.front();
     cout << trimmedResultSet.back();
+    ofstream outdata;
+    outdata.open(EXPANSION_FILE_NAME);
+    for(const auto &res: trimmedResultSet) {
+      outdata << res << endl;
+    }
+    outdata.close();
   } catch (runtime_error &e) {
     cerr << "Runtime error: " << e.what() << endl;
     return 1;
