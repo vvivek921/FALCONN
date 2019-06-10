@@ -303,7 +303,7 @@ int main() {
         query_object->reset_query_statistics();
         query_object->find_k_nearest_neighbors(query,k,&result);
         for(const auto res: result) {
-          if(resultSet.find(res) != resultSet.end()  ) {
+          if(resultSet.find(res) == resultSet.end()  ) {
             expansion+=1;
           }
         }
