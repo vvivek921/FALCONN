@@ -65,15 +65,15 @@ using falconn::get_default_parameters;
 typedef SparseVector<float,int> Point;
 using falconn::core::CosineDistanceSparse;
 CosineDistanceSparse<float> distance_function;
-const string DATASET_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/glove.840B.300d_sparse.dat";
-const string QUERY_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/glove_tail_2_sparse.dat";
-const string EXPANSION_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/expanded.txt";
+const string DATASET_FILE_NAME = "/mnt/lookalike/demograph_no_nulls.dat";
+const string QUERY_FILE_NAME = "/mnt/lookalike/demograph_no_nulls_query.dat";
+const string EXPANSION_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/expanded1.txt";
 const int SEED = 4057218;
 const int NUM_HASH_TABLES = 30;
 const int NUM_HASH_BITS = 18;
 const int NUM_ROTATIONS = 2;
-const int DATA_VECTOR_DIM = 300;
-const int FEATURE_HASHING_DIMENSION=128;
+const int DATA_VECTOR_DIM = 4;
+const int FEATURE_HASHING_DIMENSION=4;
 const int FACTOR = 1;
 const int NUM_OF_PROBES = 120;
 /*
@@ -307,7 +307,8 @@ int main() {
         }
         result.clear();
       }
-
+      cout << resultSet.size() << " result set size" << endl;
+      cout << queries.size() << " queries size" << endl;
     } while( resultSet.size() < queries.size() * FACTOR);
     cout<< "query size: "<< queries.size();
     cout << "resultSet size: " << resultSet.size();
