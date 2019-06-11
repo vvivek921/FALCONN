@@ -325,9 +325,9 @@ int main() {
       if(trimmedResultSet.size() == queries.size() * FACTOR)
         break;
     }
-    cout << "trimmed ResultSet size: "<< trimmedResultSet.size();
-    cout << trimmedResultSet.front();
-    cout << trimmedResultSet.back();
+    cout << "trimmed ResultSet size: "<< trimmedResultSet.size() << endl;
+    cout << "front" << trimmedResultSet.front() << endl;
+    cout << "back" << trimmedResultSet.back() << endl;
     ofstream outdata;
     outdata.open(EXPANSION_FILE_NAME);
     for(const auto &res: trimmedResultSet) {
