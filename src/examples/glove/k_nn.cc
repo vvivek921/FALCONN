@@ -291,25 +291,32 @@ int main() {
     int num_probes = NUM_OF_PROBES;
     unordered_set<int> resultSet;
     int k = FACTOR;
-    do {
-      resultSet.clear();
-      cout << num_probes << " probes" << endl;
-      num_probes = num_probes * 2;
-      unique_ptr<LSHNearestNeighborQuery<Point>> query_object =
-              table->construct_query_object(num_probes);
-      query_object->reset_query_statistics();
-
-      for (const auto &query : queries) {
+    for (const auto &query : queries) {
+      int expansion = 0;
+      int num_probes_for_this_query = num_probes;
+      int k_for_query = k;
+      do {
+        expansion = 0;
         std::vector<int> result;
-        query_object->find_k_nearest_neighbors(query,k,&result);
+        unique_ptr<LSHNearestNeighborQuery<Point>> query_object =
+                table->construct_query_object(num_probes_for_this_query);
+        query_object->reset_query_statistics();
+        query_object->find_k_nearest_neighbors(query,k_for_query,&result);
         for(const auto res: result) {
-          resultSet.insert(res);
+          if(resultSet.find(res) == resultSet.end()  ) {
+            expansion+=1;
+          }
         }
-        result.clear();
-      }
-      cout << resultSet.size() << " result set size" << endl;
-      cout << queries.size() << " queries size" << endl;
-    } while( resultSet.size() < queries.size() * FACTOR);
+        if(expansion >= FACTOR) {
+          for(const auto res: result) {
+            resultSet.insert(res);
+          }
+        } else {
+          num_probes_for_this_query = num_probes_for_this_query * 2;
+          k_for_query = k_for_query * 2;
+        }
+      } while(expansion < FACTOR);
+    }
     cout<< "query size: "<< queries.size();
     cout << "resultSet size: " << resultSet.size();
     std::vector<int> trimmedResultSet;
