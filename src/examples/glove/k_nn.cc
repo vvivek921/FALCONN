@@ -66,7 +66,7 @@ typedef SparseVector<float,int> Point;
 using falconn::core::CosineDistanceSparse;
 CosineDistanceSparse<float> distance_function;
 const string DATASET_FILE_NAME = "/mnt/lookalike/demograph_no_nulls.dat";
-const string QUERY_FILE_NAME = "/mnt/lookalike/demograph_no_nulls_query.dat";
+const string QUERY_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/query.dat";
 const string EXPANSION_FILE_NAME = "/home/vivek.vanga/FALCONN/src/examples/glove/dataset/expanded1.txt";
 const int SEED = 4057218;
 const int NUM_HASH_TABLES = 30;
@@ -74,7 +74,7 @@ const int NUM_HASH_BITS = 18;
 const int NUM_ROTATIONS = 2;
 const int DATA_VECTOR_DIM = 4;
 const int FEATURE_HASHING_DIMENSION=4;
-const int FACTOR = 1;
+const int FACTOR = 20;
 const int NUM_OF_PROBES = 120;
 /*
  * An auxiliary function that reads a point from a binary file that is produced
