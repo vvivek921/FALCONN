@@ -75,7 +75,7 @@ const int NUM_ROTATIONS = 2;
 const int DATA_VECTOR_DIM = 4;
 const int FEATURE_HASHING_DIMENSION=4;
 const int FACTOR = 20;
-const int NUM_OF_PROBES =40;
+const int NUM_OF_PROBES =40960;
 /*
  * An auxiliary function that reads a point from a binary file that is produced
  * by a script 'prepare-dataset.sh'
@@ -297,7 +297,7 @@ int main() {
       idx+=1;
       int expansion = 0;
       int num_probes_for_this_query = num_probes;
-      int k_for_query = k;
+      int k_for_query = k + resultSet.size();
       do {
         expansion = 0;
         cout << "expansion reset. expansion: " << expansion << endl;
