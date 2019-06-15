@@ -328,8 +328,10 @@ int main() {
           for(const auto res: result) {
             if(target == 0)
               break;
-            resultSet.insert(res);
-            target-=1;
+            if(resultSet.find(res) == resultSet.end()  ) {
+              resultSet.insert(res);
+              target-=1;
+            }
           }
           cout << "result set size: " << resultSet.size() << endl;
         } else {
