@@ -291,7 +291,10 @@ int main() {
     int num_probes = NUM_OF_PROBES;
     unordered_set<int> resultSet;
     int k = FACTOR;
+    int idx = 0;
     for (const auto &query : queries) {
+      cout << "new query: " << idx << " " << endl;
+      idx+=1;
       int expansion = 0;
       int num_probes_for_this_query = num_probes;
       int k_for_query = k;
