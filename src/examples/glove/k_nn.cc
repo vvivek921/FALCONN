@@ -300,6 +300,7 @@ int main() {
       int k_for_query = k;
       do {
         expansion = 0;
+        cout << "expansion: " << expansion << endl;
         std::vector<int> result;
         unique_ptr<LSHNearestNeighborQuery<Point>> query_object =
                 table->construct_query_object(num_probes_for_this_query);
