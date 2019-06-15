@@ -307,6 +307,11 @@ int main() {
         query_object->reset_query_statistics();
         query_object->find_k_nearest_neighbors(query,k_for_query,&result);
         cout << "result size: " << result.size() << endl;
+        if(result.size() == 0) {
+          cout << "doubling probes: " << num_probes_for_this_query << endl;
+          num_probes_for_this_query = num_probes_for_this_query * 2;
+          continue;
+        }
         int overlap = 0;
         for(const auto res: result) {
           if(resultSet.find(res) == resultSet.end()  ) {
@@ -318,12 +323,18 @@ int main() {
         cout << "expansion: " << expansion << endl;
         cout << "overlap: " << overlap << endl;
         if(expansion >= FACTOR) {
+          cout << "result set size: " << resultSet.size() << endl;
+          int target = FACTOR;
           for(const auto res: result) {
+            if(target == 0)
+              break;
             resultSet.insert(res);
+            target-=1;
           }
+          cout << "result set size: " << resultSet.size() << endl;
         } else {
           num_probes_for_this_query = num_probes_for_this_query * 2;
-          k_for_query = k + overlap;
+          k_for_query = k_for_query * 2;
         }
       } while(expansion < FACTOR);
     }
