@@ -306,6 +306,7 @@ int main() {
                 table->construct_query_object(num_probes_for_this_query);
         query_object->reset_query_statistics();
         query_object->find_k_nearest_neighbors(query,k_for_query,&result);
+        cout << "result size: " << result.size() << endl;
         for(const auto res: result) {
           if(resultSet.find(res) == resultSet.end()  ) {
             expansion+=1;
