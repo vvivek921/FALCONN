@@ -307,19 +307,23 @@ int main() {
         query_object->reset_query_statistics();
         query_object->find_k_nearest_neighbors(query,k_for_query,&result);
         cout << "result size: " << result.size() << endl;
+        int overlap = 0;
         for(const auto res: result) {
           if(resultSet.find(res) == resultSet.end()  ) {
             expansion+=1;
+          } else {
+            overlap +=1;
           }
         }
         cout << "expansion: " << expansion << endl;
+        cout << "overlap: " << overlap << endl;
         if(expansion >= FACTOR) {
           for(const auto res: result) {
             resultSet.insert(res);
           }
         } else {
           num_probes_for_this_query = num_probes_for_this_query * 2;
-          k_for_query = k_for_query * 2;
+          k_for_query = k + overlap;
         }
       } while(expansion < FACTOR);
     }
