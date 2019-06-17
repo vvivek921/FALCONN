@@ -188,17 +188,28 @@ pair<double, QueryStatistics> evaluate_query_time(
 }
 
 
-int main() {
+int main(int argc,char ** argv) {
   try {
+    cout << "arguments len: " << argc << endl;
+    if(argc != 4) {
+       exit(1);
+    }
+    string dataset_file_name(argv[1]);
+    string query_file_name(argv[2]);
+    string expansion_file_name(argv[3]);
+    cout << "dataset file name: " << argv[1] << endl;
+    cout << "query file name: " << argv[2] << endl;
+    cout << "expansion file name: " << argv[3] << endl;
+
     vector<Point> dataset, queries;
     vector<int> answers;
 
     // read the dataset
     cout << "reading points" << endl;
-    read_dataset(DATASET_FILE_NAME, &dataset);
+    read_dataset(dataset_file_name, &dataset);
     cout << dataset.size() << " dataset points read" << endl;
 
-    read_dataset(QUERY_FILE_NAME, &queries);
+    read_dataset(query_file_name, &queries);
     cout << queries.size() << "query points read" << endl;
 
     // normalize the data points
@@ -352,7 +363,7 @@ int main() {
     cout << "front" << trimmedResultSet.front() << endl;
     cout << "back" << trimmedResultSet.back() << endl;
     ofstream outdata;
-    outdata.open(EXPANSION_FILE_NAME);
+    outdata.open(expansion_file_name);
     for(const auto &res: trimmedResultSet) {
       outdata << res << endl;
     }
