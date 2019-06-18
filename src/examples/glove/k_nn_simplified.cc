@@ -301,74 +301,33 @@ int main(int argc,char ** argv) {
     auto table = construct_table<Point>(dataset, params);
     cout << "table construction done" << endl;
     int num_probes = NUM_OF_PROBES;
-    unordered_set<int> resultSet;
     int k = FACTOR;
-    int idx = 0;
+    ofstream outdata;
+    outdata.open(expansion_file_name);
     for (const auto &query : queries) {
-      cout << "new query: " << idx << " " << endl;
-      idx+=1;
-      int expansion = 0;
       int num_probes_for_this_query = num_probes;
-      int k_for_query = k + resultSet.size();
+      std::vector<int> result;
       do {
-        expansion = 0;
-        cout << "k for this query" << k_for_query << endl;
-        cout << "num_probes_for_this_query" << num_probes_for_this_query << endl;
-        cout << "expansion reset. expansion: " << expansion << endl;
-        std::vector<int> result;
+        result.clear();	
         unique_ptr<LSHNearestNeighborQuery<Point>> query_object =
                 table->construct_query_object(num_probes_for_this_query);
         query_object->reset_query_statistics();
-        query_object->find_k_nearest_neighbors(query,k_for_query,&result);
+        query_object->find_k_nearest_neighbors(query,k,&result);
         cout << "result size: " << result.size() << endl;
         if(result.size() == 0) {
-          cout << "doubling probes: " << num_probes_for_this_query << endl;
-          num_probes_for_this_query = num_probes_for_this_query * 2;
-          continue;
-        }
-        int overlap = 0;
-        for(const auto res: result) {
-          if(resultSet.find(res) == resultSet.end()  ) {
-            expansion+=1;
-          } else {
-            overlap +=1;
-          }
-        }
-        cout << "expansion: " << expansion << endl;
-        cout << "overlap: " << overlap << endl;
-        if(expansion >= FACTOR) {
-          cout << "result set size: " << resultSet.size() << endl;
-          int target = FACTOR;
-          for(const auto res: result) {
-            if(target == 0)
-              break;
-            if(resultSet.find(res) == resultSet.end()  ) {
-              resultSet.insert(res);
-              target-=1;
-            }
-          }
-          cout << "result set size: " << resultSet.size() << endl;
-        } else {
-          num_probes_for_this_query = num_probes_for_this_query * 2;
-          k_for_query = k_for_query * 2;
-        }
-      } while(expansion < FACTOR);
-    }
-    cout<< "query size: "<< queries.size();
-    cout << "resultSet size: " << resultSet.size();
-    std::vector<int> trimmedResultSet;
-    for(const auto &res: resultSet) {
-      trimmedResultSet.push_back(res);
-      if(trimmedResultSet.size() == queries.size() * FACTOR)
-        break;
-    }
-    cout << "trimmed ResultSet size: "<< trimmedResultSet.size() << endl;
-    cout << "front" << trimmedResultSet.front() << endl;
-    cout << "back" << trimmedResultSet.back() << endl;
-    ofstream outdata;
-    outdata.open(expansion_file_name);
-    for(const auto &res: trimmedResultSet) {
-      outdata << res << endl;
+            cout << "doubling probes: " << num_probes_for_this_query << endl;
+            num_probes_for_this_query = num_probes_for_this_query * 2;
+            continue;
+        } else if(result.size() != k) {
+            cout << "unknown result size"<< endl;
+            exit(1);
+	} else {
+	    break;
+        } 
+      } while(true);
+      for(const auto &res: result) {
+          outdata << res << endl;
+      }
     }
     outdata.close();
   } catch (runtime_error &e) {
